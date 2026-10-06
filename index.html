@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>致勝之道</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Serif+TC:wght@400;600&display=swap">
+<style>
+/* 版面：投影用單一畫面。作答時八張選項卡四欄排列，揭曉後改為依票數排序的橫條；沿用課程沙盤遊戲的紙本、墨色、朱紅色系 */
+:root{
+  --paper:#EFE6D2; --paper-2:#F7F1E4; --line:#CDBF9F; --sand:#E2D5B8;
+  --ink:#1F1C19; --ink-2:#4F473F; --ink-3:#6E655A;
+  --red:#A8322A; --red-soft:#F3DEDA; --blue:#2B5C8A; --blue-soft:#DCE6F0; --on-accent:#FFFFFF;
+  --display:'LXGW WenKai TC','Kaiti TC','STKaiti','BiauKai',serif;
+  --body:'Noto Serif TC','Songti TC','PMingLiU',serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#1B1916; --paper-2:#26231F; --line:#4A4339; --sand:#3A342D;
+  --ink:#EFE6D2; --ink-2:#CFC4B0; --ink-3:#A0968A;
+  --red:#D9675B; --red-soft:#3D2420; --blue:#7FA9D3; --blue-soft:#1E2C3A; --on-accent:#1B1916; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#1B1916; --paper-2:#26231F; --line:#4A4339; --sand:#3A342D;
+  --ink:#EFE6D2; --ink-2:#CFC4B0; --ink-3:#A0968A;
+  --red:#D9675B; --red-soft:#3D2420; --blue:#7FA9D3; --blue-soft:#1E2C3A; --on-accent:#1B1916; color-scheme:dark}
+html,body{background:var(--paper);color:var(--ink)}
+body{font-family:var(--body);padding:0 16px;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box}
+button{font-family:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-block:20px 32px;display:flex;flex-direction:column;gap:18px}
+.top{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.top h1{margin:0;font-family:var(--display);font-size:clamp(26px,3vw,36px);letter-spacing:4px;font-weight:700}
+.q{margin:0;font-family:var(--display);font-size:clamp(24px,3.4vw,40px);line-height:1.4;text-wrap:balance}
+.how{margin:0;font-size:clamp(15px,1.6vw,19px);color:var(--ink-2);line-height:1.7}
+.ctrl{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.nbox{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink-2)}
+.step{display:flex;align-items:center;gap:4px}
+.step button{width:40px;height:40px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:20px}
+.step span{min-width:40px;text-align:center;font-variant-numeric:tabular-nums;font-size:22px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.grid{grid-template-columns:minmax(0,1fr)}}
+.opt{border:1.5px solid var(--line);border-radius:12px;background:var(--paper-2);padding:16px;display:flex;flex-direction:column;gap:10px}
+.opt .g{width:56px;height:56px;border-radius:8px;background:var(--red);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:32px}
+.opt .t{font-family:var(--display);font-size:clamp(22px,2.2vw,28px);font-weight:700;letter-spacing:2px}
+.opt .d{font-size:15px;color:var(--ink-3);line-height:1.5;min-height:2.6em}
+.opt .step{margin-top:auto;justify-content:space-between;border-top:1px dashed var(--line);padding-top:10px}
+.opt .step span{font-size:28px}
+.primary{height:56px;border:none;border-radius:10px;background:var(--red);color:var(--on-accent);font-family:var(--display);font-size:22px;letter-spacing:5px;padding:0 32px}
+.ghost{height:46px;border:1.5px solid var(--ink);border-radius:10px;background:transparent;font-size:15px;padding:0 18px}
+.tog{display:flex;gap:8px;flex-wrap:wrap}
+.tog button{border:1px solid var(--line);background:var(--paper-2);border-radius:20px;padding:8px 16px;font-size:15px}
+.tog button[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:600}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar{border:1px solid var(--line);border-radius:10px;background:var(--paper-2);padding:12px 16px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 14px;align-items:center}
+.bar .g{width:44px;height:44px;border-radius:6px;background:var(--red);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:24px;grid-row:span 2;align-self:start}
+.bar .t{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:2px}
+.track{display:flex;flex-direction:column;gap:5px;grid-column:2}
+.ln{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink-3)}
+.ln .lab{width:34px;flex-shrink:0}
+.ln .tr{flex:1;height:16px;background:var(--sand);border-radius:8px;overflow:hidden}
+.ln .fill{display:block;height:100%;border-radius:8px;background:var(--red);transition:width .5s}
+.ln .pct{width:96px;text-align:right;font-variant-numeric:tabular-nums;font-size:16px;color:var(--ink-2)}
+.src{grid-column:2;font-size:15px;line-height:1.7;border-top:1px dashed var(--line);padding-top:8px;margin-top:4px;color:var(--ink-2)}
+.src small{display:block;font-size:13px;color:var(--ink-3)}
+.src .qt{display:block;font-family:var(--display);font-size:21px;color:var(--ink)}
+.badge{display:inline-block;margin-left:10px;font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:0;padding:2px 10px;border-radius:12px;background:var(--blue-soft);color:var(--blue);vertical-align:4px}
+.status{font-size:13px;color:var(--ink-3);text-align:right}
+@media (prefers-reduced-motion:reduce){.ln .fill{transition:none}}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <h1>致勝之道</h1>
+  </div>
+
+  <section id="voteView" style="display:flex;flex-direction:column;gap:16px">
+    <p class="q">冷兵器時代的戰爭，要打勝仗，最靠什麼？</p>
+    <div class="grid" id="grid"></div>
+    <div class="ctrl">
+      <div class="nbox">全班人數 <div class="step"><button type="button" id="nMinus" aria-label="人數減一">−</button><span id="nVal">0</span><button type="button" id="nPlus" aria-label="人數加一">＋</button></div></div>
+      <button class="primary" type="button" id="btnReveal" style="margin-left:auto">揭曉排名</button>
+    </div>
+  </section>
+
+  <section id="resultView" hidden style="display:flex;flex-direction:column;gap:14px">
+    <div class="ctrl">
+      <button class="ghost" type="button" id="btnBack">回到計票</button>
+      <div class="tog" role="group" aria-label="揭曉內容">
+        <button type="button" id="togSrc" aria-pressed="false">兵書怎麼說</button>
+      </div>
+    </div>
+    <div class="bars" id="bars"></div>
+  </section>
+  <div class="status" id="saveStatus"></div>
+</div>
+
+<script>
+const OPTS=[
+ {k:'qi',g:'奇',t:'出奇制勝',d:'用敵人意想不到的方式出手',src:'《孫子・勢》',q:'凡戰者，以正合，以奇勝。',tip:'先要有正面的對峙，奇兵才有作用。',jx:'韓信派二千輕騎持紅旗，從小路潛至萆山，趁趙軍空營奪壁。李左車也提出奇兵，用途卻是斷糧；陳餘則自稱不用奇計。'},
+ {k:'qi_',g:'器',t:'兵器精良',d:'刀更利、甲更堅、車更多',trap:1,src:'《孫子・計》',q:'主孰有道？將孰有能？天地孰得？法令孰行？兵眾孰強？士卒孰練？賞罰孰明？',tip:'孫子比較兩軍的七件事，幾乎都在講人與制度，器械只是其中一小部分。宋代照前例造了大量戰車，仍然屢戰屢敗。',jx:''},
+ {k:'xu',g:'虛',t:'打擊弱點',d:'避開敵人強處，專打弱處',src:'《孫子・虛實》',q:'兵之形，避實而擊虛。',tip:'弱點不一定一開始就在，往往是調動敵人之後才出現的。',jx:'趙軍傾營追擊，營壘變成空虛之處，漢軍奇兵正好打在這裡。'},
+ {k:'yong',g:'勇',t:'勇猛敢死',d:'將士不怕死，一往無前',trap:1,src:'《吳子・論將》',q:'勇之於將，乃數分之一耳。夫勇者必輕合。',tip:'只有勇，容易輕率接戰。勇是將領條件的一部分，不是全部。',jx:'漢軍背水殊死作戰，但這份拚命不是天生的，是韓信把他們放進絕地逼出來的。'},
+ {k:'zhong',g:'眾',t:'兵力優勢',d:'人多就是力量',src:'《孫子・謀攻》',q:'十則圍之，五則攻之，倍則分之。',tip:'兵力多寡決定的是打法，不是勝負本身。',jx:'陳餘引作「什則圍之，倍則戰」，認為韓信兵少又疲憊，堅持正面迎戰。'},
+ {k:'jun',g:'君',t:'聽從君命',d:'前線服從朝廷，步調一致',trap:1,src:'《孫子・謀攻》〈九變〉',q:'將能而君不御者勝。／君命有所不受。',tip:'遠在後方的君主不清楚戰場情況，干預太多反而壞事。長平之戰趙王臨陣換將就是例子。',jx:''},
+ {k:'di',g:'地',t:'佔據地利',d:'先佔好地形，以逸待勞',src:'《孫子・行軍》',q:'平陸處易，而右背高，前死後生。',tip:'背後倚靠高地，前方留給敵人難走的地形。',jx:'趙軍先佔有利地形築壁；漢軍反而背水列陣，諸將因此質疑違反兵法。'},
+ {k:'tian',g:'天',t:'天時吉日',d:'挑對日子、順應天意才出兵',trap:1,src:'《尉繚子・天官》',q:'天官時日，不若人事也。',tip:'兵家多半把占卜吉凶放在人事之後，孫子也說情報不可取於鬼神。',jx:''},
+ {k:'qi2',g:'氣',t:'士氣與紀律',d:'士兵肯拚命、令行禁止',src:'《孫子・軍爭》；《吳子・治兵》',q:'三軍可奪氣，將軍可奪心。／以治為勝。',tip:'士氣會隨時間起落；紀律則靠平時訓練。',jx:'韓信背水列陣，逼出士卒死戰，理由是所帶的兵未經訓練，給生路就會逃散。'},
+ {k:'yi',g:'義',t:'堂堂正正',d:'正義之師，不屑用詐',trap:1,src:'《孫子・計》',q:'兵者，詭道也。',tip:'師出有名可以凝聚人心，但戰場上拒絕用計，等於把主動權讓給對手。',jx:'陳餘自稱義兵不用詐謀奇計，拒絕李左車斷糧之策，結果兵敗身死。'},
+ {k:'liang',g:'糧',t:'補給',d:'糧草充足，才能撐到最後',src:'《孫子・軍爭》',q:'軍無輜重則亡，無糧食則亡，無委積則亡。',tip:'走得快，常常是丟下了輜重換來的。',jx:'李左車指出井陘道路狹窄、漢軍糧草必在後方，建議以三萬奇兵截斷輜重。'},
+ {k:'jian2',g:'殲',t:'殲敵越多越好',d:'把敵軍打到一兵不剩',trap:1,src:'《孫子・謀攻》',q:'全軍為上，破軍次之。百戰百勝，非善之善者也。',tip:'能讓對手不戰而服，比殺傷多少更高明。',jx:'韓信戰後不殺李左車，以師禮請教，再依他的計策兵不血刃收服燕國。'},
+ {k:'jian',g:'間',t:'情報',d:'知道敵人在想什麼、在哪裡',src:'《孫子・用間》',q:'先知者，不可取於鬼神……必取於人，知敵之情者也。',tip:'要知道的不只是敵人在哪裡，還有敵將打算怎麼做。',jx:'韓信派人打探，確認陳餘不用李左車之計，才敢進兵。'},
+ {k:'jiang',g:'將',t:'將領能力',d:'好的指揮官決定一切',src:'《孫子・計》',q:'將者，智、信、仁、勇、嚴也。',tip:'同樣讀兵書的人，判斷可以完全不同。',jx:'韓信與陳餘讀的是同一類兵法，判斷卻完全不同；戰後韓信以師禮對待李左車。'}
+];
+const $=id=>document.getElementById(id);
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const blank=()=>({n:0,c:Object.fromEntries(OPTS.map(o=>[o.k,0]))});
+function norm(x){const b=blank();if(!x)return b;b.n=Math.max(0,+x.n||0);OPTS.forEach(o=>{b.c[o.k]=Math.max(0,+(x.c&&x.c[o.k])||0)});return b;}
+let data={open:blank(),final:blank()};
+let round='open',view='vote',showSrc=false,showJx=false,db=null,canWrite=true;
+const timers={},writing={},pend={};
+
+function renderGrid(){
+  const r='open';
+  $('grid').innerHTML='';
+  OPTS.forEach(o=>{
+    const el=document.createElement('div');el.className='opt';
+    el.innerHTML='<span class="g"></span><span class="t"></span><span class="d"></span>'+
+      '<div class="step">'+(canWrite?'<button type="button" data-k="'+o.k+'" data-d="-1" aria-label="減一">−</button>':'')+
+      '<span>'+data[r].c[o.k]+'</span>'+(canWrite?'<button type="button" data-k="'+o.k+'" data-d="1" aria-label="加一">＋</button>':'')+'</div>';
+    el.querySelector('.g').textContent=o.g;el.querySelector('.t').textContent=o.t;el.querySelector('.d').textContent=o.d;
+    $('grid').appendChild(el);
+  });
+  $('nVal').textContent=data[r].n;
+  $('nMinus').hidden=$('nPlus').hidden=!canWrite;
+}
+function pct(r,k){const n=data[r].n;return n?Math.round(data[r].c[k]/n*100):0;}
+function line(r,k){
+  const p=pct(r,k);
+  return '<div class="ln '+r+'"><span class="tr"><span class="fill" style="width:'+Math.min(100,p)+'%"></span></span><span class="pct">'+data[r].c[k]+' 人・'+p+'%</span></div>';
+}
+function renderBars(){
+  $('togSrc').setAttribute('aria-pressed',showSrc);
+  const order=OPTS.slice().sort((a,b)=>data.open.c[b.k]-data.open.c[a.k]);
+  $('bars').innerHTML='';
+  order.forEach(o=>{
+    const el=document.createElement('div');el.className='bar';
+    let h='<span class="g"></span><span class="t"></span><div class="track">'+line('open',o.k)+'</div>';
+    if(showSrc)h+='<div class="src s1"><small></small><span class="qt"></span><span class="tp"></span></div>';
+    el.innerHTML=h;
+    el.querySelector('.g').textContent=o.g;el.querySelector('.t').textContent=o.t;
+    if(showSrc&&o.trap){const bd=document.createElement('span');bd.className='badge';bd.textContent='看似合理，兵書有保留';el.querySelector('.t').appendChild(bd);}
+    if(showSrc){el.querySelector('.s1 small').textContent=o.src;el.querySelector('.qt').textContent=o.q;el.querySelector('.tp').textContent=o.tip;}
+    $('bars').appendChild(el);
+  });
+}
+function render(){
+  $('voteView').hidden=view!=='vote';$('resultView').hidden=view!=='result';
+  if(view==='vote')renderGrid();else renderBars();
+}
+$('grid').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-k]');if(!b||!canWrite)return;
+  const r=data[round];r.c[b.dataset.k]=Math.max(0,r.c[b.dataset.k]+(+b.dataset.d));
+  render();save(round);
+});
+$('nMinus').onclick=()=>{const r=data[round];r.n=Math.max(0,r.n-1);render();save(round);};
+$('nPlus').onclick=()=>{data[round].n++;render();save(round);};
+$('btnReveal').onclick=()=>{view='result';render();};
+$('btnBack').onclick=()=>{view='vote';render();};
+$('togSrc').onclick=()=>{showSrc=!showSrc;render();};
+
+function save(r){
+  store.set('zs-tally',data);
+  if(!db){$('saveStatus').textContent='結果存在這台裝置上';return;}
+  clearTimeout(timers[r]);pend[r]=true;
+  $('saveStatus').textContent='儲存中…';
+  timers[r]=setTimeout(async function go(){
+    if(writing[r]){timers[r]=setTimeout(go,300);return;}
+    writing[r]=true;
+    try{await db.doc('tally/'+r).set({n:data[r].n,c:data[r].c});$('saveStatus').textContent='已儲存';}
+    catch(e){$('saveStatus').textContent='儲存失敗，結果暫存在這台裝置上';}
+    writing[r]=false;pend[r]=false;
+  },600);
+}
+
+const local=store.get('zs-tally');if(local){data.open=norm(local.open);data.final=norm(local.final);}
+render();
+(async()=>{
+  if(!window.claude||!claude.use)return;
+  const [d,u]=await Promise.all([claude.use('db'),claude.use('user')]);
+  if(!d){$('saveStatus').textContent='結果存在這台裝置上';return;}
+  db=d;
+  if(u){const ed=await u.canEdit(),ow=await u.isOwner();canWrite=!!(ed||ow);}
+  ['open'].forEach(r=>db.doc('tally/'+r).onSnapshot(s=>{
+    if(s.exists&&!writing[r]&&!pend[r]){data[r]=norm(s.data());render();}
+  },()=>{}));
+  render();
+})();
+</script>
+
+</html>
